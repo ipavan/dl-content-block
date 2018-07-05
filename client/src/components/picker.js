@@ -22,7 +22,7 @@ class Picker extends Component {
 		this.sdk = new blocksdk();
 		this.options = cruiseData.cruises.map((cruise) => {
 			return (
-				<option value={cruise.cruise_nid} key={cruise.cruise_nid}>{cruise.cruise_nid}-{cruise.ship_title}</option>
+				<option value={cruise.cruise_nid}-{cruise.ship_title} key={cruise.cruise_nid}>{cruise.cruise_nid}-{cruise.ship_title}</option>
 			);
 		});
 	}
