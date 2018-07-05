@@ -9,6 +9,14 @@ app.get('/index.html', (req, res) => {
 	res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
+app.get('/icon.png', (req, res) => {
+	res.sendFile(path.join(__dirname + '/client/build/icon.png'));
+});
+
+app.get('/dragIcon.png', (req, res) => {
+	res.sendFile(path.join(__dirname + '/client/build/dragIcon.png'));
+});
+
 app.get('/test', (req, res) => {
 	res.send('Hello World!');
 });
