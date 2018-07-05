@@ -49,9 +49,13 @@ class Picker extends Component {
   		for (let i in cruiseData.cruises) {
 			if (cruiseData.cruises[i].cruise_nid == this.state.value) {
 				let selectedCruise = cruiseData.cruises[i];
-				content += '<h1>Your selected cruise from ' + selectedCruise.companyTitle + '</h1>'
+				console.log(selectedCruise);
+				content += '<h1>Your selected cruise from ' + selectedCruise.company_title + '</h1>';
+				content += '<div>to the ' + selectedCruise.area_title + '</div>';
+				content += '<p>This is a ' + selectedCruise.banderole.category + ' that you are sure to enjoy!</p>';
 			}
 		}
+		console.log(content);
 		this.sdk.setContent(content);
   	}
 
