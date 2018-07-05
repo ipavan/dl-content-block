@@ -3,6 +3,12 @@ import { cruiseData } from '../data.js';
 import blocksdk from 'blocksdk';
 import styles from './picker.css';
 
+const VIEW_STATUS = {
+    CRUISE_SEARCH: 0,
+    SHIP_SEARCH: 1,
+    ERROR: 2,
+};
+
 class Picker extends Component {
 
 	constructor(props) {
@@ -10,16 +16,24 @@ class Picker extends Component {
 		this.state = {
 			value: cruiseData.cruises[0].cruise_nid,
 			sailValue: null,
-			selected: false,
+			selected: VIEW_STATUS.CRUISE_SEARCH,
+			searchValue: '',
 		}
 		this.handleChange = this.handleChange.bind(this);
+		this.handleSearchChange = this.handleSearchChange.bind(this);
 		this.handleSailChange = this.handleSailChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleSailSubmit = this.handleSailSubmit.bind(this);
+		this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+		this.handleBackButton = this.handleBackButton.bind(this);
 	}
 
 	handleChange(event) {
 		this.setState({value: event.target.value});
+	}
+
+	handleSearchChange(event) {
+		this.setState({searchValue: event.target.value});
 	}
 
 	handleSailChange(event) {
@@ -35,7 +49,6 @@ class Picker extends Component {
 		}
     	event.preventDefault();
     	this.getSailings();
-    	this.setState({selected: true});
   	}
 
   	handleSailSubmit(event) {
@@ -44,15 +57,47 @@ class Picker extends Component {
   		this.setSdkData();
   	}
 
+  	handleSearchSubmit(event) {
+  		console.log(this.state.searchValue);
+  		event.preventDefault();
+  		this.cruiseContent = null;
+  		for (let i in cruiseData.cruises) {
+			if (cruiseData.cruises[i].cruise_nid == this.state.searchValue) {
+				this.cruiseContent = cruiseData.cruises[i];
+			}
+		}
+		if (this.cruiseContent) {
+			this.getSailings();
+		}
+		else {
+			this.setState({selected: VIEW_STATUS.ERROR});
+		}
+  	}
+
+  	handleBackButton(event) {
+  		event.preventDefault();
+  		this.setState({
+  			value: cruiseData.cruises[0].cruise_nid,
+			sailValue: null,
+			selected: VIEW_STATUS.CRUISE_SEARCH,
+  		})
+  	}
+
   	setSdkData() {
   		let content = '';
   		for (let i in cruiseData.cruises) {
 			if (cruiseData.cruises[i].cruise_nid == this.state.value) {
 				let selectedCruise = cruiseData.cruises[i];
 				console.log(selectedCruise);
-				content += '<h1>Your selected cruise from ' + selectedCruise.company_title + '</h1>';
+				content += '<h1>Enjoy a cruise from ' + selectedCruise.company_title + '</h1>';
 				content += '<div>to the ' + selectedCruise.area_title + '</div>';
 				content += '<p>This is a ' + selectedCruise.banderole.category + ' that you are sure to enjoy!</p>';
+				for (let j in selectedCruise.sails) {
+					if (selectedCruise.sails[j].sail_nid == this.state.sailValue) {
+						let selectedSailing = selectedCruise.sails[j];
+						content += '<p>And it\'s only ' + selectedSailing.currency + selectedSailing.price + '</p>';
+					}
+				}
 			}
 		}
 		console.log(content);
@@ -67,7 +112,7 @@ class Picker extends Component {
 				<option value={sail.sail_nid} key={sail.sail_nid}>{sail.sail_nid}</option>
 			);
 		});
-
+  		this.setState({selected: VIEW_STATUS.SHIP_SEARCH});
   	}
 
 	componentWillMount() {
@@ -82,7 +127,7 @@ class Picker extends Component {
 
 	render() {
 		let display = '';
-		if (this.state.selected) {
+		if (this.state.selected == VIEW_STATUS.SHIP_SEARCH) {
 			display = 
 			<div className = 'padding'>
 				<h2>Select a sailing</h2>
@@ -94,9 +139,14 @@ class Picker extends Component {
 						<input type="submit" value="Submit"/>
 					</div>
 				</form>
+				<form onSubmit={this.handleBackButton}>
+					<div>
+						<input type="submit" value="Go Back"/>
+					</div>
+				</form>
 			</div>;
 		}
-		else {
+		else if (this.state.selected == VIEW_STATUS.CRUISE_SEARCH) {
 			display = <div className='padding'>
 				<h2>Select a cruise ship</h2>
 				<form  onSubmit={this.handleSubmit}>
@@ -105,6 +155,27 @@ class Picker extends Component {
 					</select>
 					<div>
 						<input type="submit" value="Submit"/>
+					</div>
+				</form>
+				<form onSubmit={this.handleSearchSubmit}>
+					<div>
+						<h2>Or search by Cruise ID</h2>
+					</div>
+					<div>
+						<input type="text" value={this.state.searchValue} onChange={this.handleSearchChange} />
+					</div>
+					<div>
+						<input type="submit" value="Search" />
+					</div>
+				</form>
+			</div>;
+		} 
+		else {
+			display = <div>
+				<h2>Your search returned no results</h2>
+				<form onSubmit={this.handleBackButton}>
+					<div>
+						<input type="submit" value="Go Back"/>
 					</div>
 				</form>
 			</div>;
