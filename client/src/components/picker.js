@@ -89,7 +89,7 @@ class Picker extends Component {
 			if (cruiseData.cruises[i].cruise_nid == this.state.value) {
 				let selectedCruise = cruiseData.cruises[i];
 				console.log(selectedCruise);
-				content += '<td align="center" style="color: rgb(79, 79, 79); font-family: &quot;Salesforce Sans&quot;, Arial, sans-serif; font-style: normal; line-height: 22px; padding: 40px 40px 10px; text-align: center; vertical-align: top;" width="100%"><span style="font-size: 20px;"><b>Bis zum Start Ihrer Kreuzfahrt</b></span><table align="center" class="tmp--full-width" style="font-size: 16px; font-weight: normal;" width="100%">';
+				content += '<table align="center" class="tmp--full-width" style="font-size: 16px; font-weight: normal;" width="100%"><tr><td align="center" style="color: rgb(79, 79, 79); font-family: &quot;Salesforce Sans&quot;, Arial, sans-serif; font-style: normal; line-height: 22px; padding: 40px 40px 10px; text-align: center; vertical-align: top;" width="100%"><span style="font-size: 20px;"><b>Bis zum Start Ihrer Kreuzfahrt</b></span></td></tr></table>';
 				content += '<p>' + selectedCruise.route_title + '</p>';
 				content += '<div style="font-size: 16px">' + selectedCruise.nights + 'Nächte  auf der ' + selectedCruise.ship_title + '</div>';
 				content += '<div style="font-size:16px">ab ' + selectedCruise.cheapestSail.price + '€</div>';
