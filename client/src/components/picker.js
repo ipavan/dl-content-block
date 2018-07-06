@@ -89,15 +89,16 @@ class Picker extends Component {
 			if (cruiseData.cruises[i].cruise_nid == this.state.value) {
 				let selectedCruise = cruiseData.cruises[i];
 				console.log(selectedCruise);
-				content += '<h1>Enjoy a cruise from ' + selectedCruise.company_title + '</h1>';
-				content += '<div>to the ' + selectedCruise.area_title + '</div>';
-				content += '<p>This is a ' + selectedCruise.banderole.category + ' that you are sure to enjoy!</p>';
-				for (let j in selectedCruise.sails) {
+				content += '<td align="center" style="color: rgb(79, 79, 79); font-family: &quot;Salesforce Sans&quot;, Arial, sans-serif; font-style: normal; line-height: 22px; padding: 40px 40px 10px; text-align: center; vertical-align: top;" width="100%"><span style="font-size: 20px;"><b>Bis zum Start Ihrer Kreuzfahrt</b></span><table align="center" class="tmp--full-width" style="font-size: 16px; font-weight: normal;" width="100%">';
+				content += '<p>' + selectedCruise.route_title + '</p>';
+				content += '<div style="font-size: 16px">' + selectedCruise.nights + 'Nächte  auf der ' + selectedCruise.ship_title + '</div>';
+				content += '<div style="font-size:16px">ab ' + selectedCruise.cheapestSail.price + '€</div>';
+				/*for (let j in selectedCruise.sails) {
 					if (selectedCruise.sails[j].sail_nid == this.state.sailValue) {
 						let selectedSailing = selectedCruise.sails[j];
 						content += '<p>And it\'s only ' + selectedSailing.currency + selectedSailing.price + '</p>';
 					}
-				}
+				}*/
 			}
 		}
 		console.log(content);
