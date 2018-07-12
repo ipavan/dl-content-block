@@ -17,10 +17,6 @@ app.get('/dragIcon.png', (req, res) => {
 	res.sendFile(path.join(__dirname + '/client/build/dragIcon.png'));
 });
 
-app.get('/test', (req, res) => {
-	res.send('Hello World!');
-});
-
 const port = process.env.PORT || 5000;
 app.listen(port);
 

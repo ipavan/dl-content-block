@@ -88,18 +88,10 @@ class Picker extends Component {
   		for (let i in cruiseData.cruises) {
 			if (cruiseData.cruises[i].cruise_nid == this.state.value) {
 				let selectedCruise = cruiseData.cruises[i];
-				console.log(selectedCruise);
 				content += '<table align="center" class="tmp--full-width" style="font-size: 16px; font-weight: normal;" width="100%"><tr><td align="center" style="color: rgb(79, 79, 79); font-family: &quot;Salesforce Sans&quot;, Arial, sans-serif; font-style: normal; line-height: 22px; padding: 10px 40px 10px; text-align: center; vertical-align: top;" width="100%"><span style="font-size: 20px;"><b>' + selectedCruise.route_title + '</b></span></td></tr>';
-				//content += '<tr><td align="center" style="color: rgb(79, 79, 79); font-family: &quot;Salesforce Sans&quot;, Arial, sans-serif; font-style: normal; line-height: 22px; padding: 40px 40px 10px; text-align: center; vertical-align: top;" width="100%">' + selectedCruise.route_title + '</td></tr>';
 				content += '<tr><td align="center" style="color: rgb(79, 79, 79); font-family: &quot;Salesforce Sans&quot;, Arial, sans-serif; font-style: normal; line-height: 22px; padding: 10px 40px 10px; text-align: center; vertical-align: top;" width="100%">' + selectedCruise.nights + ' Nächte  auf der ' + selectedCruise.ship_title + '</td></tr>';
 				content += '<tr><td align="center" style="color: rgb(79, 79, 79); font-family: &quot;Salesforce Sans&quot;, Arial, sans-serif; font-style: normal; line-height: 22px; padding: 10px 40px 10px; text-align: center; vertical-align: top;" width="100%">ab ' + selectedCruise.cheapestSail.price + '€</td></tr>';
 				content += '</table>';
-				/*for (let j in selectedCruise.sails) {
-					if (selectedCruise.sails[j].sail_nid == this.state.sailValue) {
-						let selectedSailing = selectedCruise.sails[j];
-						content += '<p>And it\'s only ' + selectedSailing.currency + selectedSailing.price + '</p>';
-					}
-				}*/
 			}
 		}
 		console.log(content);
